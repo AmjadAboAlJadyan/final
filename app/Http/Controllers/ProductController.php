@@ -21,6 +21,8 @@ public function store(Request $request){
 
     $product = new Product();
     $product-> title = $request->title ;
+    $product-> description = $request->description ;
+    $product-> price = $request->price ;
     $product->save();
 
     return redirect()->back();
@@ -35,7 +37,7 @@ public function destory($id){
 public function edit($id){
     $product = Product::findOrFail($id);
     $products = Product::orderBy('created_at')->get();
-    return view('home',compact('product','products'));
+    return view('index',compact('product','products'));
 }
 
 public function update(Request $request,$id){
@@ -46,6 +48,8 @@ public function update(Request $request,$id){
     ]);
     $affected = Product::find($id);
     $affected->title = $request->title;
+    $affected->description = $request->description;
+    $affected->price = $request->price;
     $affected->updated_at = now();
     $affected->save();
 
